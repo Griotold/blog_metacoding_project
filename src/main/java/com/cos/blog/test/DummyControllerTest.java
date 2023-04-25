@@ -8,10 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -22,6 +20,23 @@ public class DummyControllerTest {
 
     private final UserRepository userRepository;
 
+
+    // 업데이트 메소드
+    @Transactional
+    @PutMapping("/dummy/user/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User requestUser) {
+        System.out.println("id = " + id);
+        System.out.println("requestUser.password = " + requestUser.getPassword());
+        System.out.println("requestUser.email = " + requestUser.getEmail());
+
+        User findUser = userRepository.findById(id).orElseThrow(() -> {
+            return new EntityNotFoundException("수정 실패!");
+        });
+        findUser.setEmail(requestUser.getEmail());
+        findUser.setPassword(requestUser.getPassword());
+
+        return findUser;
+    }
 
     // 한 페이지당 2건에 데이터를 리턴 받기
     @GetMapping("dummy/user")
