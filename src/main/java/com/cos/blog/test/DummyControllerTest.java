@@ -20,6 +20,22 @@ public class DummyControllerTest {
 
     private final UserRepository userRepository;
 
+    // 삭제 메소드
+    @DeleteMapping("/dummy/user/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return "삭제에 실패하였습니다. 해당 id는 DB에 없습니다.";
+        } catch (Exception e) {
+//            e.printStackTrace();
+            return "삭제 실패! Empty";
+        }
+
+        return "삭제되었습니다. id : " + id ;
+    }
+
 
     // 업데이트 메소드
     @Transactional
@@ -56,7 +72,7 @@ public class DummyControllerTest {
         // 2. 예외를 던져 버리기
         User user = userRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new EntityNotFoundException("해당 사용자는 없어용 id :" + id);
+                    return new IllegalArgumentException("해당 사용자는 없어용 id :" + id);
                 });
 
         return user;
