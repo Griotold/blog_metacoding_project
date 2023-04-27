@@ -11,8 +11,8 @@
   <title>Blog Project</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -37,10 +37,10 @@
             <c:otherwise>
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="/board/form">글쓰기</a>
+                    <a class="nav-link" href="/board/saveForm">글쓰기</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/user/form">회원정보</a>
+                    <a class="nav-link" href="/user/updateForm">회원정보</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/logout">로그아웃</a>
