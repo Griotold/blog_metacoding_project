@@ -12,6 +12,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- 커스텀 js-->
-<script src="/blog/js/user.js"></script>
+<script src="/js/user.js"></script>
 </body>
 </html>

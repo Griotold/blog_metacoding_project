@@ -17,11 +17,4 @@ public class UserService {
         User saved = userRepository.save(user);
         return saved;
     }
-    @Transactional(readOnly = true)
-    public User login(User user) {
-        User findedUser =
-                userRepository.findByUsernameAndPassword(user.getUsername(),
-                    user.getPassword());
-        return findedUser;
-    }
 }
