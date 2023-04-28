@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -27,6 +28,19 @@ public class BoardController {
         Page<Board> boards = boardService.list(pageable);
         model.addAttribute("boards", boards);
         return "index";
+    }
+
+    @GetMapping("/board/{id}/updateForm")
+    public String updateForm(@PathVariable Long id, Model model) {
+        Board board = boardService.detailServe(id);
+        model.addAttribute("board", board);
+        return "board/updateForm";
+    }
+    @GetMapping("/board/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        Board findedBoard = boardService.detailServe(id);
+        model.addAttribute("board", findedBoard);
+        return "board/detail";
     }
 
     @GetMapping("/board/saveForm")
