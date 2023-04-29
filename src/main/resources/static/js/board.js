@@ -3,10 +3,10 @@ let index2 = {
         $("#btn-save2").on("click", () => {
             this.save();
         });
-        $("#btn-delete").on("click", () => {
+        $("#btn-delete2").on("click", () => {
             this.deleteById();
         });
-        $("#btn-update").on("click", () => {
+        $("#btn-update2").on("click", () => {
             this.update();
         });
 

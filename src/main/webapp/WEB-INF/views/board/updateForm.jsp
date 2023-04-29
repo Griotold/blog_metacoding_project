@@ -15,7 +15,7 @@
           </div>
 
         </form>
-        <button id="btn-update" class="btn btn-primary">글 수정 완료</button>
+        <button id="btn-update2" class="btn btn-primary">글 수정 완료</button>
 
     </div>
 

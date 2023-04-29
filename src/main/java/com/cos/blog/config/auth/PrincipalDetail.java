@@ -1,13 +1,14 @@
 package com.cos.blog.config.auth;
 
 import com.cos.blog.model.User;
+import lombok.Data;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-@Getter
+@Data
 public class PrincipalDetail implements UserDetails {
 
     private User user;
