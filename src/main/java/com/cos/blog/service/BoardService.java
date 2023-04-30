@@ -1,9 +1,12 @@
 package com.cos.blog.service;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.repository.ReplyRepository;
 import com.cos.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +22,10 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+
+    private final ReplyRepository replyRepository;
+
+    private final UserRepository userRepository;
 
     @Transactional
     public void write(Board board, User user) {
@@ -52,5 +59,23 @@ public class BoardService {
                 });
         findedBoard.setTitle(board.getTitle());
         findedBoard.setContent(board.getContent());
+    }
+    @Transactional
+    public void writeReply(ReplySaveRequestDto replyDto) {
+        User user = userRepository.findById(replyDto.getUserId())
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("이런 회원이 없네요?");
+                });
+        Reply reply = new Reply();
+
+
+        Board board = boardRepository.findById(replyDto.getBoardId())
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("해당 게시글이 없어요");
+                });
+        reply.setUser(user);
+        reply.setBoard(board);
+        reply.setContent(replyDto.getContent());
+        replyRepository.save(reply);
     }
 }
