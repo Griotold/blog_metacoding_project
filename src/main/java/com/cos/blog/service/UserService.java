@@ -34,11 +34,19 @@ public class UserService {
                 .orElseThrow(() -> {
                     return new IllegalArgumentException("수정할 회원이 없습니다.");
                 });
-        String rawPassword = user.getPassword();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        findedUser.setPassword(encPassword);
-        findedUser.setEmail(user.getEmail());
+
+        // 서버 사이드 Validation!
+        if (findedUser.getOauth() == null || findedUser.getOauth().equals("")) {
+            String rawPassword = user.getPassword();
+            String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+            findedUser.setPassword(encPassword);
+            findedUser.setEmail(user.getEmail());
+        }
         return findedUser;
+    }
+    @Transactional
+    public boolean check(String username) {
+        return userRepository.findByUsername(username).isEmpty();
 
     }
 }
