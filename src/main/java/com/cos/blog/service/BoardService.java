@@ -1,5 +1,6 @@
 package com.cos.blog.service;
 
+import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.Reply;
@@ -84,5 +85,20 @@ public class BoardService {
         int updatedCount = replyRepository.mSave(requestDto.getUserId(),
                 requestDto.getBoardId(), requestDto.getContent());
         System.out.println("updatedCount = " + updatedCount);
+    }
+
+    public void deleteReply(Long replyId, PrincipalDetail principal) {
+        Reply findReply = replyRepository.findById(replyId).orElseThrow(() -> {
+            return new IllegalArgumentException("이런 댓글이 없습니다.");
+        });
+        User replyUser = findReply.getUser();
+
+        // 서버 사이드 Validation!
+        if (replyUser.getId() == principal.getUser().getId()) {
+            replyRepository.deleteById(replyId);
+        } else{
+            System.out.println("댓글을 쓴 본인만 삭제할 수 있어요");
+        }
+
     }
 }
