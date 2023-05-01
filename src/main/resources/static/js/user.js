@@ -26,15 +26,16 @@ let index = {
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function(resp){
-            if(resp.status === 500) {
-                alert("회원가입이 실패하였습니다.")
+            alert("회원가입이 완료되었습니다.");
+            location.href="/";
+        }).fail(function(xhr, status, error){
+            if(xhr.status === 400) {
+                alert("입력값이 올바르지 않습니다.");
+            } else if(xhr.status === 422) {
+                alert("이미 존재하는 회원입니다.");
             } else {
-                alert("회원가입이 완료되었습니다.");
-                location.href="/";
+                alert("서버에 오류가 발생했습니다.");
             }
-
-        }).fail(function(error){
-            alert(JSON.stringify(error));
 
         }); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
 
