@@ -78,4 +78,11 @@ public class BoardService {
         reply.setContent(replyDto.getContent());
         replyRepository.save(reply);
     }
+    // 영속성 컨텍스트를 거치지 않고 네이티브 쿼리로 곧바로 댓글 등록하기
+    @Transactional
+    public void writeReply2(ReplySaveRequestDto requestDto) {
+        int updatedCount = replyRepository.mSave(requestDto.getUserId(),
+                requestDto.getBoardId(), requestDto.getContent());
+        System.out.println("updatedCount = " + updatedCount);
+    }
 }

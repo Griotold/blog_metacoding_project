@@ -40,7 +40,8 @@ public class BoardApiController {
 
     @PostMapping("/api/board/{boardId}/reply")
     public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto reply) {
-        boardService.writeReply(reply);
+//        boardService.writeReply(reply);
+        boardService.writeReply2(reply);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
